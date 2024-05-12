@@ -143,3 +143,133 @@ Cypress.on("uncaught:exception", (err, runnable) => {
   // If you want Cypress to continue running the test despite the uncaught error, return false.
   return false;
 });
+
+## Init Git and add .gitignore
+git init
+
+.gitignore
+node_modules/
+
+## Params trong cucumber
+{string}: Đây là cách viết đơn giản nhất và dễ đọc nhất. Thông thường được sử dụng khi giá trị của tham số không chứa các ký tự đặc biệt hoặc không cần xử lý bất kỳ biểu thức chính quy nào.
+
+(.+): Đây là một cách linh hoạt hơn, cho phép chấp nhận bất kỳ chuỗi ký tự nào. Nó hữu ích khi bạn cần chấp nhận các giá trị có chứa các ký tự đặc biệt hoặc khoảng trắng. Tuy nhiên, nó có thể không dễ đọc như {string} vì nó không rõ ràng nhất là đối với người mới bắt đầu.
+
+"([^=]*)": Đây là biểu thức chính quy regex cho phép xác định các ký tự trong một chuỗi. Nó hữu ích khi bạn cần áp dụng các quy tắc nghiêm ngặt hơn cho đầu vào, như yêu cầu các ký tự cụ thể hoặc loại trừ các ký tự cụ thể. Tuy nhiên, việc sử dụng regex có thể làm cho các step definitions trở nên phức tạp hơn và khó hiểu, đặc biệt là đối với người mới học.
+
+## Data Driven Test
+https://filiphric.com/cucumber-in-cypress-a-step-by-step-guide#data-driven-testing
+Data tables are defined in the Examples section of your .feature file. Let’s continue with our previous file:
+create variables email and password, wrap them in <> to be passed as parameters into our step definitions.
+  @smoke
+  Scenario: Log in with correct credentials
+    Given I visit mathgpt dev login page
+    When I fill in the login form with valid "<email>" and "<password>"
+    And I press the login button
+    Then I should see a welcome message
+
+  Examples:
+    | email          | password |
+    | manh+edu1@gotitapp.co | Aa123456@  |
+    | manh+edu2@gotitapp.co | Aa123456@  |
+
+When I fill in the login form with valid <email> and <password>
+When(/^I fill in the login form with valid (.+) and (.+)$/, (email: string, password: string) => {
+    // Add code to fill in the login form with the provided email and password
+    cy.get("input[placeholder='Enter your email']").type(email);
+    cy.get("input[placeholder='Enter your password']").type(password);
+});
+
+When I fill in the login form with valid "<email>" and "<password>"
+When(/^I fill in the login form with valid "([^=]*)" and "([^=]*)"$/, (email: string, password: string) => {
+    // Add code to fill in the login form with the provided email and password
+    cy.get("input[placeholder='Enter your email']").type(email);
+    cy.get("input[placeholder='Enter your password']").type(password);
+});
+
+## Loop in data tables
+And I can print the array
+    | Milk | Bread | Butter | Jam |
+
+When('I can print the array', (dataTable: any) => {
+    //way 1: using rawTable
+    dataTable.rawTable.forEach((row: any) => {
+        // Print out each row of data using cy.log
+        // cy.log(row.join(', '));
+        cy.log('row: ' + row);
+        /*output: 
+        row: Milk,Bread,Butter,Jam
+        */
+    });
+
+    //way 2: using raw()
+    dataTable.raw()[0].forEach((item: any) => {
+        cy.log('item: ' + item);
+        /*output: item: Milk
+        item: Bread
+        item: Butter
+        item: Jam
+        */
+    })
+});
+
+## Group test and our cucumber structure
+#Top level group: Feature keyword acts as a describe() block and serves as top level group.
+#Sub-group: Rule block, that would further split your scenarios into sub-groups
+#beforeEach(): Background step, that will act sort of like a beforeEach() hook in Mocha and run a sequence of steps before every scenario
+
+Feature: Board functionality
+
+  Rule: Happy paths
+
+  Background: Empty board page
+    Given I am on empty home page
+
+  Scenario: Opening a board
+    When I type in "new board" and submit
+    Then I should be redirected to the board detail
+
+  Scenario: Creating a <listName> list within a board
+    When I type in "<boardName>" and submit
+    And Create a list with the name "<listName>"
+    Then I should be redirected to the board detail
+
+  Examples:
+    | boardName | listName |
+    | Shopping list | Groceries |
+    | Rocket launch | Preflight checks 
+
+
+## Test tagging and filter
+https://filiphric.com/cucumber-in-cypress-a-step-by-step-guide#test-tagging
+
+## Configuration of Cucumber preprocessor
+https://filiphric.com/cucumber-in-cypress-a-step-by-step-guide#configuration
+- .cypress-cucumber-preprocessorrc.json config file that may look like this:
+{
+  "stepDefinitions": [
+    "cypress/e2e/[filepath]/**/*.{js,ts}",
+    "cypress/e2e/[filepath].{js,ts}",
+    "cypress/support/step_definitions/**/*.{js,ts}",
+  ]
+}
+- Or set everything up right in your package.json by adding the equivalent:
+// rest of file skipped for brevity
+"cypress-cucumber-preprocessor": {
+  "stepDefinitions": [
+    "cypress/e2e/[filepath]/**/*.{js,ts}",
+    "cypress/e2e/[filepath].{js,ts}",
+    "cypress/support/step_definitions/**/*.{js,ts}",
+  ]
+}
+
+## Reporting, Reports
+https://filiphric.com/cucumber-in-cypress-a-step-by-step-guide#reporting
+- HTML reports
+https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/docs/html-report.md
+The report is outputted to cucumber-report.html in the project directory, but can be configured through the html.output property.
+
+- JSON reports
+https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/docs/json-report.md
+The report is outputted to cucumber-report.json in the project directory, but can be configured through the json.output property.
+
