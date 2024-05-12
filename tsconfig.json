@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    //adding for cypress cucumber
+    //https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/examples/browserify-ts/tsconfig.json
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "module":"nodenext",
+    //
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*.ts"]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "cypress_cucumber_typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@faker-js/faker": "^8.4.1",
+    "cypress": "^13.9.0",
+    "typescript": "^5.4.5"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "stepDefinitions": "cypress/e2e/step_definitions/*.{ts,js}"
+  }
+}
