@@ -23,11 +23,25 @@ Choose default configuration of Cypress Dashboard to generate configuration file
 ## Cypress tsconfig
 {
   "compilerOptions": {
+    /*
+    if using declare global in commands.ts, then we need to change "module":"nodenex" or "module":"node16", or vice versa
+    declare global {
+      namespace Cypress {
+        interface Chainable {
+          login(email: string, password: string): Chainable<void>
+          drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+          dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+          visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+        }
+      }
+    }
+    "module":"nodenex",
+    */
     //adding for cypress cucumber
     //https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/examples/browserify-ts/tsconfig.json
     "esModuleInterop": true,
-    "moduleResolution": "nodenext",
     "module":"nodenext",
+    "moduleResolution": "nodenext",
     //
     "target": "es5",
     "lib": ["es5", "dom"],
@@ -35,6 +49,26 @@ Choose default configuration of Cypress Dashboard to generate configuration file
   },
   "include": ["**/*.ts"]
 }
+
+/*
+Node.js không thể thực thi trực tiếp các tập tin TypeScript; chúng cần được biên dịch thành JavaScript trước
+1.ts-node/esm: Cypress sẽ sử dụng trình tải Node.js ts-node/esm để biên dịch các tập tin TypeScript. Gói ESM sử dụng cú pháp mô-đun ES (các câu lệnh import và export) để tải mô-đun.
+1.1. import (eg: import { faker } from "@faker-js/faker";)
+- import là cách chuẩn của ECMAScript, được định nghĩa trong các phiên bản mới của JavaScript.
+- import là cách tiện lợi và mạnh mẽ hơn khi làm việc với các module ES6 và TypeScript.
+- import giúp tạo ra các phụ thuộc rõ ràng và dễ đọc hơn trong mã nguồn.
+- import thường được ưa chuộng trong các dự án mới hoặc khi bạn muốn sử dụng các tính năng của ES6 và TypeScript một cách đầy đủ.
+1.2. require (eg: const { faker } = require("@faker-js/faker");)
+- require là cách thường được sử dụng trong Node.js trước khi có import.
+- require thường được sử dụng trong các dự án cũ hoặc khi cần tương thích ngược với các phiên bản Node.js cũ hơn không hỗ trợ import.
+- require có thể được sử dụng để nhập module từ cả thư viện Node.js cũng như các thư viện bên ngoài.
+2.ts-node: Nếu dự án của bạn không phải là một gói ESM, Cypress sẽ sử dụng ts-node thông thường để biên dịch
+Trong trường hợp này, Cypress ghi đè một số giá trị cấu hình trong tsconfig.json của bạn để làm cho cấu hình TypeScript của bạn tương thích với môi trường chạy Node.js của nó. Các giá trị bị ghi đè bao gồm:
+2.1. "module": "commonjs": Chỉ định định dạng module CommonJS, là định dạng mà Node.js hiểu được tự nhiên.
+2.2. "moduleResolution": "node": Chỉ định cách giải quyết mô-đun theo thuật toán giải quyết mô-đun của Node.js.
+2.3. "preserveValueImports": false: Đảm bảo rằng các mô-đun nhập dựa trên giá trị không được bảo tồn, vì điều này có thể gây ra vấn đề với một số cấu trúc TypeScript khi thực thi trong môi trường chạy của Cypress.
+
+*/
 
 ## Cypress Configuration
 Import required packaged in cypress.config.js
