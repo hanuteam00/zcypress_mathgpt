@@ -1,7 +1,7 @@
 //@ts-check
 /// <reference types="cypress" />
 
-describe("Test Suite 1 - Login Tests", () => {
+describe.only("Test Suite 1 - Login Tests", () => {
   let data: any;
 
   //way 1: using fixture globally
