@@ -1,12 +1,14 @@
-name: Cypress Typescript Pipeline
-
-#everytime add something to the pipeline, run the pipeline
+name: Cypress Tests
 on: [push]
+# on:
+#   push:
+#     branches:
+#       - main # Or specify the branch you want to trigger the workflow
 
 jobs:
-    cypress-run:
-        runs-on: ubuntu-latest
-        steps:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
         - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -14,6 +16,23 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
             node-version: 20
+
+# name: Cypress Typescript Pipeline
+
+# #everytime add something to the pipeline, run the pipeline
+# on: [push]
+
+# jobs:
+#     cypress-run:
+#         runs-on: ubuntu-latest
+#         steps:
+#         - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#         - name: Run Cypress Tests
+#         uses: cypress-io/github-action@v6
+#         with:
+#             node-version: 20
 
         # - name: Run Cypress Tests
         # run: npm run cy:run
