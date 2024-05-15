@@ -327,3 +327,26 @@ The report is outputted to cucumber-report.html in the project directory, but ca
 https://github.com/badeball/cypress-cucumber-preprocessor/blob/master/docs/json-report.md
 The report is outputted to cucumber-report.json in the project directory, but can be configured through the json.output property.
 
+## Class 16 - Using GitHub Actions with cypress for beginners
+(https://www.youtube.com/watch?v=Hgr4dMw7d3c&list=PLaHZ36CQywdXRl0cTpc6CcSm60clVrLDp&index=16)
+
+`
+name: Cypress Tests
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Cypress Tests
+        # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v6
+        with:
+          node-version: 20
+          spec: cypress/e2e/github_actions_demo/**/*
+`

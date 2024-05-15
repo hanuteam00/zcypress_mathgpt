@@ -55,7 +55,7 @@ export default defineConfig({
     // Enable video recording
     video: true,
     // Enable screenshots on test failures
-    // screenshotOnRunFailure: true,
+    screenshotOnRunFailure: true,
     // Trash assets before runs
     trashAssetsBeforeRuns: true,
     // Set viewport dimensions
