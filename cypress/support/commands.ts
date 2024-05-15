@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+// import { faker } from "@faker-js/faker";
+const { faker } = require("@faker-js/faker");
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -37,7 +40,7 @@
 // }
 
 /*
-way 1: "module":"nodenext" or "node16" in tsconfig.json
+way 1: "module":"nodenext" or "node16" in tsconfig.json + import support (eg: import { faker } from "@faker-js/faker";)
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -57,10 +60,13 @@ Cypress.Commands.add("loginUI", { prevSubject: false }, (email, password) => {
 });
 */
 
-//way 2: "module":"CommonJS" or no "module" in tsconfig.json
+//way 2: "module":"CommonJS" or no "module" in tsconfig.json + no import (eg: import { faker } from "@faker-js/faker";), only const { faker } = require("@faker-js/faker");
+
 declare namespace Cypress {
   interface Chainable<Subject> {
     loginUI(email: any, password: any): Chainable<Subject>;
+    getFaker(): Chainable<any>;
+    // faker: typeof faker;
   }
 }
 
@@ -72,4 +78,9 @@ Cypress.Commands.add("loginUI", (email, password) => {
   cy.get(`input[name='password']`).type(password);
   // Click on the login button
   cy.get(`form.u-widthFull > .Button:nth-of-type(2)`).click();
+});
+
+// Define a custom command to access faker
+Cypress.Commands.add('getFaker', () => {
+  return faker;
 });

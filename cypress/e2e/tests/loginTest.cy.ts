@@ -1,5 +1,6 @@
 //@ts-check
 /// <reference types="cypress" />
+
 describe("Test Suite 1 - Login Tests", () => {
   let data: any;
 
@@ -13,15 +14,15 @@ describe("Test Suite 1 - Login Tests", () => {
   context("Test Group 1 - Successful Login", () => {
     it("TC 1 - login successfully with correct credentials", () => {
       cy.loginUI(data.email, data.password);
-      //cy.loginUI("engineer+edu1@gotitapp.co", "Aa123456@");
       /*
-            // cy.visit('/login?role=educator'); // Assuming your login page is at '/login'
-            // // Enter username and password
-            // cy.get(`input[name='email']`).type('engineer+edu1@gotitapp.co');
-            // cy.get(`input[name='password']`).type('Aa123456@');
-            // // Click on the login button
-            // cy.get(`form.u-widthFull > .Button:nth-of-type(2)`).click();
-            */
+      cy.loginUI("engineer+edu1@gotitapp.co", "Aa123456@");
+      cy.visit('/login?role=educator'); // Assuming your login page is at '/login'
+      // Enter username and password
+      cy.get(`input[name='email']`).type('engineer+edu1@gotitapp.co');
+      cy.get(`input[name='password']`).type('Aa123456@');
+      // Click on the login button
+      cy.get(`form.u-widthFull > .Button:nth-of-type(2)`).click();
+      */
       // Assert that login was successful
       cy.get(`div[class^='GreetingHeading']`).should("contain", "Welcome");
       cy.get(`div[class='u-marginTopExtraSmall']`).should(
@@ -32,7 +33,7 @@ describe("Test Suite 1 - Login Tests", () => {
     it("TC 1b - login successfully with multiple credentials", () => {
       //way 2: using fixture locally
       cy.fixture("login_multiple").then((dataMany) => {
-        dataMany.forEach((accountList) => {
+        dataMany.forEach((accountList:any) => {
           cy.loginUI(accountList.email, accountList.password);
           // Assert that login was successful
           cy.get(`div[class^='GreetingHeading']`).should("contain", "Welcome");
