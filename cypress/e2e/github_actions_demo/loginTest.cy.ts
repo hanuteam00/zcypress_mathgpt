@@ -12,7 +12,7 @@ describe("Test Suite 1 - Login Tests", () => {
   });
 
   context("Test Group 1 - Successful Login", () => {
-    it.only("TC 1 - login successfully with correct credentials", () => {
+    it("TC 1 - login successfully with correct credentials", () => {
       cy.loginUI(data.email, data.password);
       /*
       cy.loginUI("engineer+edu1@gotitapp.co", "Aa123456@");
