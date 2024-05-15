@@ -110,6 +110,17 @@ export default defineConfig({
     viewportHeight: 1080,
 
     //set baseUrl
-    baseUrl: 'https://dev.mathgpt.ai'
+    baseUrl: 'https://dev.mathgpt.ai',
+    
+    // Enable video recording
+    video: true,
+
+    // Enable screenshots on test failures
+    screenshotOnRunFailure: true,
+    
+    // Trash assets before runs
+    trashAssetsBeforeRuns: true,
+
+
   },
 });
