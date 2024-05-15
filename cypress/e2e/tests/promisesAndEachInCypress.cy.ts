@@ -1,5 +1,22 @@
-it("should wait for different durations for each element", () => {
+//@ts-check
+/// <reference types="cypress" />
 
+/*
+- `each()` được sử dụng để lặp qua các phần tử DOM và thực thi một số logic kiểm tra đối với mỗi phần tử.
+- `forEach()` được sử dụng để lặp qua một mảng dữ liệu JSON và thi hành các hành động người dùng, chẳng hạn như điền và gửi biểu mẫu.
+*/
+
+describe("Data Driven Login Test", () => {
+  let users: any; // Khai báo biến local để lưu trữ danh sách người dùng
+
+  beforeEach(() => {
+    cy.fixture("users").then((userData) => {
+      users = userData; // Lưu danh sách người dùng vào biến local
+    });
+    cy.visit("https://dev.mathgpt.ai/login?role=educator");
+  });
+
+  it("should wait for different durations for each element", () => {
     //cy.wrap([1, 2, 3]): Dùng cy.wrap để chuyển mảng [1, 2, 3] thành một đối tượng mà Cypress có thể xử lý và thao tác
     /*
     - num: Đây là giá trị của phần tử hiện tại trong mảng. Trong trường hợp này, num chứa giá trị của từng phần tử trong mảng ([1, 2, 3]).
@@ -19,19 +36,18 @@ it("should wait for different durations for each element", () => {
 
     // Sử dụng forEach trong JavaScript
     [1, 2, 3].forEach((num, i, array) => {
-        // Hành động JavaScript thông thường
-        console.log(`Element2 ${num} at index ${i}`);
-        cy.visit('https://google.com/');
+      // Hành động JavaScript thông thường
+      console.log(`Element2 ${num} at index ${i}`);
+      cy.visit("https://google.com/");
     });
 
     cy.wrap([1, 2, 3]).each((num: any, i, array) => {
-        return new Cypress.Promise((resolve) => {
-            setTimeout(() => {
-                resolve()
-            }, num * 1000)
-        })
-    })
-
+      return new Cypress.Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, num * 1000);
+      });
+    });
 
     // // Sử dụng cy.wrap để xử lý mảng trong Cypress
     // cy.wrap(delays).each((delay, index) => {
@@ -46,4 +62,32 @@ it("should wait for different durations for each element", () => {
     //         }, delay);
     //     });
     // });
+  });
+
+  it("TC2 - each() - should assert text of each button", () => {
+    cy.visit("https://the-internet.herokuapp.com/forgot_password");
+    cy.get("button").each(($el, index, $list) => {
+      // $el là phần tử DOM hiện tại
+      // index là chỉ số của phần tử trong mảng
+      // $list là danh sách toàn bộ phần tử trả về trong cy.get('button')
+
+      // Kiểm tra text mỗi nút, giả sử nút đầu tiên có text là "First", vv...
+      const expectedTexts = ["Retrieve password"];
+      expect($el.text().trim()).to.eq(expectedTexts[index]);
+    });
+  });
+
+  it.only("TC3 - forEach() - should login with multiple accounts", () => {
+    users.forEach((user: any) => {
+      // Sử dụng biến local để truy cập danh sách người dùng
+      cy.get("input[placeholder='Enter your email']").clear().type(user.email);
+      cy.get("input[placeholder='Enter your password']")
+        .clear()
+        .type(user.password);
+      //   cy.get("#submit").click();
+
+      // Add your assertion here
+      // cy.url().should("include", "/home");
+    });
+  });
 });
