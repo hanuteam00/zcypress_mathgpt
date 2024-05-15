@@ -21,20 +21,20 @@ npx cypress open
 Choose default configuration of Cypress Dashboard to generate configuration files
 
 ## Cypress tsconfig
-{
-  "compilerOptions": {
-    /*
-    if using declare global in commands.ts, then we need to change "module":"nodenex" or "module":"node16", or vice versa
+//way 1: 
+- "module":"nodenext" or "node16" in tsconfig.json
+- declare global in commands.ts
+- import support (eg: import { faker } from "@faker-js/faker";) 
     declare global {
       namespace Cypress {
         interface Chainable {
           login(email: string, password: string): Chainable<void>
-          drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-          dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-          visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
         }
       }
     }
+then we should have config in tsconfig.json like this
+{
+  "compilerOptions": {
     "module":"nodenex",
     */
     //adding for cypress cucumber
@@ -43,6 +43,26 @@ Choose default configuration of Cypress Dashboard to generate configuration file
     "module":"nodenext",
     "moduleResolution": "nodenext",
     //
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*.ts"]
+}
+
+//way 2: 
+- "module":"CommonJS" or no "module" in tsconfig.json
+- only const { faker } = require("@faker-js/faker"); no import
+- no declare global in commands.ts
+- import support (eg: import { faker } from "@faker-js/faker";) 
+  declare namespace Cypress {
+    interface Chainable<Subject> {
+      loginUI(email: any, password: any): Chainable<Subject>;
+    }
+  }
+then we should have config in tsconfig.json like this
+{
+  "compilerOptions": {
     "target": "es5",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"]
