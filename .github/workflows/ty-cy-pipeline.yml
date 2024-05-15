@@ -8,12 +8,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
-            uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
         - name: Run Cypress Tests
-            uses: cypress-io/github-action@v6
-            with:
-                node-version: 20
+        uses: cypress-io/github-action@v6
+        with:
+            node-version: 20
 
         # - name: Run Cypress Tests
         # run: npm run cy:run
