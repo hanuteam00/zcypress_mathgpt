@@ -27,8 +27,11 @@ jobs:
         # Install npm dependencies, cache them correctly
         # and run all Cypress tests
         uses: cypress-io/github-action@v6
+        #Cung cấp các thông số cấu hình cho action cypress-io/github-action.
         with:
+          #Chỉ định phiên bản Node.js sẽ được sử dụng.
           node-version: 16
+          #Chỉ định các tệp spec của Cypress sẽ được chạy.
           spec: cypress/e2e/github_actions_demo/**/*
 
         # For Cypress Cloud

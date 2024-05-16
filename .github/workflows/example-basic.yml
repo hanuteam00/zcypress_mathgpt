@@ -24,12 +24,12 @@ jobs:
         # the parameters below are only necessary
         # because we are running these examples in a monorepo
         with:
-          working-directory: examples/basic
+        #   working-directory: examples/basic
           spec: cypress/e2e/github_actions_demo/**/*
           # just for full picture after installing Cypress
           # print information about detected browsers, etc
           # see https://on.cypress.io/command-line#cypress-info
-          build: npx cypress info
+        #   build: npx cypress info
 
   basic-ubuntu-22:
     runs-on: ubuntu-22.04
@@ -41,9 +41,9 @@ jobs:
         # uses: ./
         uses: cypress-io/github-action@v6
         with:
-          working-directory: examples/basic
+        #   working-directory: examples/basic
           spec: cypress/e2e/github_actions_demo/**/*
-          build: npx cypress info
+        #   build: npx cypress info
 
   basic-on-windows:
     runs-on: windows-latest
@@ -52,11 +52,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Cypress tests
-        uses: ./
+        # uses: ./
+        uses: cypress-io/github-action@v6
         with:
-          working-directory: examples/basic
+        #   working-directory: examples/basic
           spec: cypress/e2e/github_actions_demo/**/*
-          build: npx cypress info
+        #   build: npx cypress info
 
 #   basic-on-mac:
 #     runs-on: macos-latest
