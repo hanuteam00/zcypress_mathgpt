@@ -1,18 +1,26 @@
+#Đặt tên cho workflow, sẽ hiển thị trên GitHub Actions - workflow list UI
 name: Cypress Tests
 
+#Xác định các sự kiện sẽ kích hoạt workflow này. 
+#Trong trường hợp này, workflow sẽ chạy khi có bất kỳ thay đổi nào được push lên repository.
 on: [push]
 
+#Khối này định nghĩa các công việc (jobs) sẽ được thực hiện trong workflow.
 jobs:
-  build:
+  #Tên của job, sẽ hiển thị ở trong detailed workflow run.
+  cypress-run:
+    #Chỉ định môi trường runner mà job này sẽ chạy. ubuntu-latest sẽ sử dụng môi trường Ubuntu mới nhất do GitHub cung cấp.
     runs-on: ubuntu-latest
     
+    #Khối này định nghĩa các bước (steps) trong job.
     steps:
-      - name: Checkout
+      #Đặt tên cho các bước, sẽ hiển thị trong detailed job.
+      - name: 1st step - Checkout
         uses: actions/checkout@v3
 
-      - name: Run Cypress Tests
+      - name: 2nd step - Run Cypress Tests
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           node-version: 16
           spec: cypress/e2e/github_actions_demo/**/*
