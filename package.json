@@ -1,15 +1,18 @@
 {
   "name": "zcypress_mathgpt",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:open": "cypress open",
+    "cy:chrome": "cypress run --headed --browser chrome"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
+    "@cypress/browserify-preprocessor": "^3.0.2",
     "@faker-js/faker": "^8.4.1",
     "cypress": "^13.9.0",
     "typescript": "^5.4.5"

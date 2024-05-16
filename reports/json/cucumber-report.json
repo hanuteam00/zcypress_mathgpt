@@ -1,0 +1,250 @@
+[
+  {
+    "description": "  In order to use the site\n  As a user\n  I want to login successfully",
+    "elements": [
+      {
+        "description": "",
+        "id": "login-functionality;log-in-with-correct-credentials",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Log in with correct credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 85000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I visit mathgpt dev login page",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 994000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I fill in the login form with valid \"manh+edu1@gotitapp.co\" and \"Aa123456@\"",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5961000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I press the login button",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 108000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "I should see a welcome message",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3042000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Milk",
+                      "Bread",
+                      "Butter",
+                      "Jam"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 15,
+            "name": "I can print the array",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 32000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@viewportHeight(720)",
+            "line": 1
+          },
+          {
+            "name": "@viewportWidth(1280)",
+            "line": 2
+          },
+          {
+            "name": "@desktop",
+            "line": 8
+          },
+          {
+            "name": "@smoke",
+            "line": 9
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "login-functionality;log-in-with-correct-credentials",
+        "keyword": "Scenario",
+        "line": 21,
+        "name": "Log in with correct credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 62000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I visit mathgpt dev login page",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 246000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I fill in the login form with valid \"manh+edu2@gotitapp.co\" and \"Aa123456@\"",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 946000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I press the login button",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 168000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "I should see a welcome message",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1320000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "Milk",
+                      "Bread",
+                      "Butter",
+                      "Jam"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 15,
+            "name": "I can print the array",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@viewportHeight(720)",
+            "line": 1
+          },
+          {
+            "name": "@viewportWidth(1280)",
+            "line": 2
+          },
+          {
+            "name": "@desktop",
+            "line": 8
+          },
+          {
+            "name": "@smoke",
+            "line": 9
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "login-functionality",
+    "line": 3,
+    "keyword": "Feature",
+    "name": "Login functionality",
+    "tags": [
+      {
+        "name": "@viewportHeight(720)",
+        "line": 1
+      },
+      {
+        "name": "@viewportWidth(1280)",
+        "line": 2
+      }
+    ],
+    "uri": "cypress/e2e/features/login.feature"
+  }
+]

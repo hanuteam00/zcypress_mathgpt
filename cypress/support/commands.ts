@@ -1,7 +1,9 @@
+//@ts-check
 /// <reference types="cypress" />
+// require('cypress-xpath');
+// require("cypress-plugin-tab");
 // import { faker } from "@faker-js/faker";
 const { faker } = require("@faker-js/faker");
-
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -66,6 +68,7 @@ declare namespace Cypress {
   interface Chainable<Subject> {
     loginUI(email: any, password: any): Chainable<Subject>;
     getFaker(): Chainable<any>;
+    writeToJson(fileNamePath:any, data1:any, data2:any, data3:any, data4:any, data5:any, data6:any): void;
     // faker: typeof faker;
   }
 }
@@ -84,3 +87,30 @@ Cypress.Commands.add("loginUI", (email, password) => {
 Cypress.Commands.add('getFaker', () => {
   return faker;
 });
+
+// cypress/support/index.ts
+// Cypress.Commands.add('dataCy', (value) => {
+//     return cy.get(`[data-cy=${value}]`)
+// })
+
+// Command to write data to a JSON file after successful registration
+Cypress.Commands.add(
+    "writeToJson",
+    (fileNamePath, data1, data2, data3, data4, data5, data6) => {
+        // Add data to json file
+        const filename = fileNamePath;
+        // cy.log('filename: ', filename)
+        // cy.log('fileNamePath: ', fileNamePath)
+        cy.readFile(filename).then((data) => {
+            data.push({
+                randEmail: data1,
+                randPassword: data2,
+                firstName: data3,
+                lastName: data4,
+                randPhone: data5,
+                randDOB: data6,
+            });
+            cy.writeFile(filename, data);
+        });
+    }
+);

@@ -1,16 +1,5 @@
 {
   "compilerOptions": {
-    /*
-    //way 1: 
-    - "module":"nodenext" or "node16" in tsconfig.json
-    - declare global in commands.ts
-    - import support (eg: import { faker } from "@faker-js/faker";) 
-    - "module":"CommonJS" or no "module" in tsconfig.json
-    - only const { faker } = require("@faker-js/faker"); no import
-    - no declare global in commands.ts
-    - import support (eg: import { faker } from "@faker-js/faker";) 
-    */
-    // "module":"nodenext",
     "target": "es5",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"]

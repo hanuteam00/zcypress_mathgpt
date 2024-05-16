@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import './common/common.actions'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -32,3 +33,25 @@ if (
 
   app.document.head.appendChild(style);
 }
+
+// Listening for the 'uncaught:exception' event in Cypress.
+Cypress.on("uncaught:exception", (err, runnable) => {
+  // Prevent Cypress from automatically failing the test when an uncaught error occurs.
+  // Handle the error here if necessary.
+  // If you want Cypress to continue running the test despite the uncaught error, return false.
+  return false;
+});
+
+/*
+declare global {
+  namespace Cypress {
+    interface Chainable {
+       // Custom command to select DOM element by data-cy attribute.
+       // @example cy.dataCy('greeting')
+      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+      writeToJson(fileNamePath: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any): void;
+      generateTestData(): Chainable<void>
+    }
+  }
+}
+*/
